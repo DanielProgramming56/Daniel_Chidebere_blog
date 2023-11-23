@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { Blog } from "./BlogModel.js";
 const UserSchema = new mongoose.Schema({
     user_name: {
         type: String,
@@ -14,7 +13,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    blogs: [Blog],
     isAdmin: {
         type: Boolean,
         default: false

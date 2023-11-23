@@ -1,6 +1,6 @@
 export const handleError = (err, req, res, next) => {
     const statusCode = err.statusCode || 400
-    res.statusCode(statusCode).json({
+    res.status(statusCode).json({
         message: err.message,
         stack: process.env.ENV_MODE == "production" ? null :  err.stack
     })

@@ -12,6 +12,7 @@ const app = express()
 
 
 // middlewares
+app.use(express.json())
 app.use("/api", api)
 app.use(handleError)
 app.use(invalidPathError)
