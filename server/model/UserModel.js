@@ -18,17 +18,15 @@ const UserSchema = new mongoose.Schema({
         default: false
     }
 })
+export const User = mongoose.model("User", UserSchema)
+UserSchema.pre('save', async function (next) {
+    const userCount = await User.countDocuments();
+    const userLimit = 1;
 
-export const User = mongoose.model('User', UserSchema)
-
-UserSchema.pre('save', function (next) {
-    const limitUser = 2;
-    const totalUser = User.countDocuments()
-
-    if (totalUser > limitUser) {
-        const err = new Error('User limit exceeded')
-        next(err)
+    if (userCount >= userLimit) {
+        const err = new Error('User limit exceeded');
+        next(err);
     } else {
-        next()
+        next();
     }
-})
+});

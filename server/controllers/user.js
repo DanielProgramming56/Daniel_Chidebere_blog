@@ -9,6 +9,20 @@ export const signUp = async (req, res, next) => {
             next(error)
             return
         }
+
+        const userExist = await User.findOne({ email })
+
+        if (userExist) {
+            const error = new Error("User is sign up  already, you can login user")
+            next(error)
+        }
+
+        const userCount = await User.countDocuments()
+
+        if (userCount > 2) {
+            const error = new Error("User limit exceeded")
+            next(error)
+        }
         const hashPassword = await bcrypt.hash(password, 12)
         const new_user = new User({ user_name, email, password: hashPassword, isAdmin })
         await new_user.save()
@@ -18,6 +32,11 @@ export const signUp = async (req, res, next) => {
         }, process.env.TOKEN_KEY, { expiresIn: "1h" })
         res.json({ message: "successfully created an account", user: new_user, token })
     } catch (error) {
+
+        if (error.message === 'User limit exceeded') {
+            const error = new Error("User limit exceeded")
+            next(error)
+        }
         next(error)
     }
 }
@@ -27,12 +46,6 @@ export const login = async (req, res, next) => {
         const { password, email } = req.body
 
         const userExist = await User.findOne({ email })
-
-        if (!password && !email) {
-            const error = new Error("All field are required")
-            next(error)
-            return
-        }
 
         if (!userExist) {
             const error = new Error("email  or password is not correct")
@@ -49,7 +62,7 @@ export const login = async (req, res, next) => {
             userId: userExist._id,
             email: userExist.email
         }, process.env.TOKEN_KEY, { expiresIn: '1h' })
-        res.status(200).json({ message: 'User created successfully', token: token });
+        res.status(200).json({ message: 'User login successfully', token });
     } catch (error) {
         next(error)
     }
