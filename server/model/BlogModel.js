@@ -10,6 +10,7 @@ const BlogSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'Comment'
     }],
     users: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
+    
 }, { timestamps: true })
 
 export const Blog = mongoose.model('Blog', BlogSchema)
