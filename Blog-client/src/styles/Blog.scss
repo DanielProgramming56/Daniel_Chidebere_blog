@@ -1,0 +1,43 @@
+@import "./index.scss";
+
+.containerBlog{
+    width: 45em;
+    margin: 10px 30px;
+    border-bottom: solid 1px #ccc;
+    padding: 10px;
+    transition: .2s ease;
+    h1{
+        margin: 0;
+        font-size: 2em;
+    }
+
+    p{
+        font-size: 16px;
+    }
+
+    span{
+        font-style: italic;
+        color: rgb(164, 0, 214); ;
+    }
+
+    &:hover{
+        border-bottom: solid 1px $primary-color;
+        cursor: pointer;
+        background-color: rgb(12, 5, 48);
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    .containerBlog{
+        width: 100%;
+        margin: 20px;
+        p{
+            font-size: 0.9em;
+        }
+
+        span{
+            font-size: 0.9em;
+        }
+    }
+}

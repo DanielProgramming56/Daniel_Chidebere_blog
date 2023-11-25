@@ -1,5 +1,5 @@
 // variable
-$primary-color: rgb(214, 129, 0);
+$primary-color: rgb(187, 67, 11);
 $secondary-color: #020101;
 * {
     margin: 0;
@@ -14,16 +14,13 @@ $secondary-color: #020101;
     line-height: 1.6;
     color: #ffff;
     background-color: $secondary-color;
+    overflow-x: hidden;
   }
   
   // Add some basic styling for links
   a {
-    color: #3498db;
+    color: inherit;
     text-decoration: none;
-  
-    &:hover {
-      text-decoration: underline;
-    }
   }
   
   // Add styles for headings

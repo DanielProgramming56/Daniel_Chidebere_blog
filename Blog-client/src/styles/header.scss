@@ -1,7 +1,36 @@
 @import "index.scss";
 
-div {
-  background-color: $primary-color;
-  height: 10vh;
+.container {
+  background-color: rgb(187, 67, 11);
+  height: 15vh;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  position: static;
+
+  .Logo{
+    font-size: 2em;
+    font-weight: 500;
+  }
+  ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 10vw;
+  }
+}
+
+@media screen and (max-width: 730px) {
+
+    
+    .container {
+      height: 10vh;
+        .Logo{
+            font-size: 1.2em;
+          }
+        ul{
+            width: 35vw;
+          }
+    }
 }
