@@ -6,7 +6,9 @@ const Blogs = () => {
     const arr = [1,2,3,4,5]
     return (
         <div className='containerBlogs'>
-           {arr.map((value) => <Blog/>)}
+           {arr.map((value) => (
+            <Blog/>
+           ))}
         </div>
     );
 }

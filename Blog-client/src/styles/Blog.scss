@@ -23,7 +23,7 @@
     &:hover{
         border-bottom: solid 1px $primary-color;
         cursor: pointer;
-        background-color: rgb(12, 5, 48);
+        background-color: rgb(5, 1, 22);
         border-radius: 10px;
     }
 }
@@ -31,7 +31,6 @@
 @media screen and (max-width: 730px) {
     .containerBlog{
         width: 100%;
-        margin: 20px;
         p{
             font-size: 0.9em;
         }
