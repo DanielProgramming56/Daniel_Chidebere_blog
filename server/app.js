@@ -4,6 +4,7 @@ import api from "./routes/api.js"
 import { connectDataBase } from "./config/database.js"
 import { handleError } from "./middleware/handleError.js"
 import { invalidPathError } from "./middleware/handleError.js"
+import cors from "cors"
 // configurations
 dotenv.config()
 
@@ -16,6 +17,13 @@ app.use(express.json())
 app.use("/api", api)
 app.use(handleError)
 app.use(invalidPathError)
+app.use(cors(
+    {
+        origin: ["https://daniel_chidebere_blog.vercel.app"],
+        methods: ['POST', 'PUT', 'GET', 'DELETE'],
+        credentials: true
+    }
+))
 // port
 const port = process.env.PORT || 5000
 connectDataBase()
