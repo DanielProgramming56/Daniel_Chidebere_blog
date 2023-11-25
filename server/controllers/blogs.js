@@ -71,7 +71,7 @@ export const updateBlog = async (req, res, next) => {
 export const deleteBlog = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const blogToDelete = await Blog.findByIdAndRemove(id)
+        const blogToDelete = await Blog.findByIdAndDelete(id)
 
         if (!blogToDelete) {
             const err = new Error('Blog Not found')

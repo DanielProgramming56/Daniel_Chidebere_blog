@@ -1,0 +1,40 @@
+// variable
+$primary-color: rgb(214, 129, 0);
+$secondary-color: #020101;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  // Set some global styles
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ffff;
+    background-color: $secondary-color;
+  }
+  
+  // Add some basic styling for links
+  a {
+    color: #3498db;
+    text-decoration: none;
+  
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  // Add styles for headings
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  // Add some basic styling for images
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
