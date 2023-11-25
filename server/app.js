@@ -19,7 +19,7 @@ app.use(handleError)
 app.use(invalidPathError)
 app.use(cors(
     {
-        origin: ["https://daniel_chidebere_blog.vercel.app"],
+        origin: ["https://https://daniel-chidebere-dev.vercel.app/"],
         methods: ['POST', 'PUT', 'GET', 'DELETE'],
         credentials: true
     }

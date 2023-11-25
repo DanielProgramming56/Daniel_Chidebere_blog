@@ -1,16 +1,18 @@
 import { Blog } from "../model/BlogModel.js"
+import { Comment } from "../model/commentModel.js"
 export const createComment = async (req, res, next) => {
 
     try {
         const { id } = req.params
-        const { text, user_name } = req.body
+        const { text} = req.body
         const blog = await Blog.findById(id)
-        const newComment = { text, user_name }
         if (!blog) {
             const error = new Error("Not found")
             next(error)
         }
-        blog.comments.push(newComment)
+       const newComent = new Comment({text})
+       await newComent.save()
+        blog.comments.push(newComent._id)
         await blog.save()
         res.json(blog)
     } catch (error) {

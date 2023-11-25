@@ -2,7 +2,7 @@ import { Blog } from "../model/BlogModel.js"
 
 export const getAllBlogs = async (req, res, next) => {
     try {
-        const get_blog = await Blog.find({})
+        const get_blog = await Blog.find().populate("comments")
         res.json(get_blog)
     } catch (error) {
         next(error)
