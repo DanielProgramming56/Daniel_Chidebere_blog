@@ -36,16 +36,16 @@ $secondary-color: #020101;
     height: auto;
   }
 
-  .footer{
+  footer{
+    text-align: center;
+  }
 
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+  .container-footer{
+    max-width: 1200px;
+  margin: 0 auto;
   }
 
   @media screen and (max-width: 730px) {
-    .footer{
-      text-align: center;
-    }
+   
   }
   
