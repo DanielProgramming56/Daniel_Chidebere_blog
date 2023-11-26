@@ -7,4 +7,11 @@
     flex-direction: column;
     align-items: center;
     margin-top: 160px;
+    width: 100%;
+}
+
+@media screen and (max-width: 730px) {
+   .containerBlogs{
+    margin-top: 30px;
+   }
 }
