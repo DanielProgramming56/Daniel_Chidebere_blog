@@ -16,6 +16,8 @@ const AppHeader = () => {
                 <Link to={"https://www.linkedin.com/in/chidebere-daniel-84b55728b/"} target="_blank">{<LinkedInIcon />}</Link>
                 <Link to={"https://github.com/DanielProgramming56"} target="_blank">{<GitHubIcon />}</Link>
             </ul>
+
+            <Link to={"/login"}>Login</Link>
         </div>
     );
 }
