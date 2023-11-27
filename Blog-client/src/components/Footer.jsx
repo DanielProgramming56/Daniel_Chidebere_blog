@@ -3,10 +3,10 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer >
-      <div className="container-footer">
+    <footer className="footer">
+   
         <p>&copy; 2023 Daniel Chidebere Dev. All rights reserved.</p>
-      </div>
+
     </footer>
   );
 }
