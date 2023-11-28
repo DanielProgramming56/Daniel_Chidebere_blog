@@ -43,7 +43,7 @@ export const signUp = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
     try {
-        const { password, email } = req.body
+        const { email, password } = req.body
 
         const userExist = await User.findOne({ email })
 
@@ -62,7 +62,7 @@ export const login = async (req, res, next) => {
             userId: userExist._id,
             email: userExist.email
         }, process.env.TOKEN_KEY, { expiresIn: '1h' })
-        res.status(200).json({ message: 'User login successfully', token });
+        res.status(200).json({ message: 'User login successfully', user: userExist,token });
     } catch (error) {
         next(error)
     }

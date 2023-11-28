@@ -13,7 +13,7 @@ function App() {
         <Route  path="/" element={<HomePage />}/>
         <Route  path="/blog/:id" element={<SIngleBlog />}/>
         <Route element={<ProtectRoutes />}>
-          <Route  path="/login"  element={LoginPage}/>
+          <Route  path="/login"  element={<LoginPage/>}/>
         </Route>
       </Routes>
       <Footer />
