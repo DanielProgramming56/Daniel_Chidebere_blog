@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "../styles/login.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../store/reducers/authSlice";
+import { loginUserAsync } from "../store/actions/authActions";
+const apiUrl = import.meta.env.VITE_API;
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -9,34 +13,20 @@ const LoginPage = () => {
     password: "",
   });
 
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const loginUser = async (data) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:5056/api/user/login",
-        data
-      );
-
-      if (response.data.message === "User login successfully") {
-        localStorage.setItem("userData", JSON.stringify(response.data));
-        navigate("/");
-      } else {
-        alert("Login failed. Please check your credentials.");
-      }
-    } catch (error) {
-      console.log({ error: error.message });
-      alert("An error occurred during login. Please try again later.");
-    }
-  };
-  
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser(formData)
-    
+    dispatch(loginUserAsync(formData)).then((res) => {
+      if (res) {
+        navigate("/");
+      }
+    });
   };
   return (
     <div className="container-login">
