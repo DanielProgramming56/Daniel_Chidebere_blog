@@ -6,8 +6,8 @@ export const handleError = (err, req, res, next) => {
     })
 }
 
-export const invalidPathError = (req, res, next) => {
-    let error = new Error('invalid path')
-    error.statusCode = 404
-    next(error)
-}
+// export const invalidPathError = (req, res, next) => {
+//     let error = new Error('invalid path')
+//     error.statusCode = 404
+//     next(error)
+// }
