@@ -6,6 +6,8 @@ import { loginActionAsync } from "../store/actions/authActions";
 import { selectLoading } from "../store/reducers/authSlice";
 import loading from "../assets/Ellipsis-1s-200px.svg";
 const LoginPage = () => {
+
+  console.log(import.meta.env.VITE_API);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
