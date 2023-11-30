@@ -15,6 +15,7 @@ export const signUp = async (req, res, next) => {
         if (userExist) {
             const error = new Error("User is sign up  already, you can login user")
             next(error)
+            return;
         }
 
         const userCount = await User.countDocuments()
@@ -22,6 +23,7 @@ export const signUp = async (req, res, next) => {
         if (userCount > 2) {
             const error = new Error("User limit exceeded")
             next(error)
+            return;
         }
         const hashPassword = await bcrypt.hash(password, 12)
         const new_user = new User({ user_name, email, password: hashPassword, isAdmin })
@@ -52,10 +54,11 @@ export const login = async (req, res, next) => {
             next(error)
         }
 
-        const passwordIsCorrect = bcrypt.compare(password, userExist.password)
+        const passwordIsCorrect = await bcrypt.compare(password, userExist.password)
 
         if (!passwordIsCorrect) {
             throw new Error("invalid credentials")
+            return;
         }
 
         const token = jwt.sign({

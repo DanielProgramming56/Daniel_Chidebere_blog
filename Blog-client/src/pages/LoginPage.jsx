@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginActionAsync } from "../store/actions/authActions";
 import { selectLoading } from "../store/reducers/authSlice";
-import loading from "../assets/Ellipsis-1s-200px.svg"
+import loading from "../assets/Ellipsis-1s-200px.svg";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const isLoading = useSelector(selectLoading)
+  const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -22,8 +22,7 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginActionAsync(formData)).then((res) => {
-      if (res) {
-        console.log(res);
+      if (res.type == "auth/loginUserAsync/fulfilled") {
         navigate("/");
       }
     });
@@ -59,7 +58,11 @@ const LoginPage = () => {
           </div>
 
           <button type="submit" disabled={isLoading}>
-            {isLoading ? <img style={{height: "70px"}} src={loading} alt="loading" /> : "Submit"}
+            {isLoading ? (
+              <img style={{ height: "70px" }} src={loading} alt="loading" />
+            ) : (
+              "Submit"
+            )}
           </button>
         </fieldset>
       </form>
