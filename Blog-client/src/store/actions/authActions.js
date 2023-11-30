@@ -14,12 +14,9 @@ const loginActionAsync = createAsyncThunk('auth/loginUserAsync', async (formData
         if (response.data.message === 'User login successfully') {
             return response.data;
         } else {
-            alert('Login failed. Please check your credentials.');
             return null;
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred during login. Please try again later.');
         return null;
     }
 })

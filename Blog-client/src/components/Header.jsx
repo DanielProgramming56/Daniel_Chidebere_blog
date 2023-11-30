@@ -11,7 +11,6 @@ import { logoutUser } from '../store/reducers/authSlice';
 const AppHeader = () => {
     const dispatch = useDispatch()
     const isLogin = useSelector(selectIsAuthenticated)
-    console.log(logoutUser());
     return (
         <div className='container'>
             <Link to={"/"} className='Logo'> Space Air</Link>

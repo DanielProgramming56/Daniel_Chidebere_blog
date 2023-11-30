@@ -11,6 +11,8 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+
+  const [errMessage, setErrMessage] = useState("");
   const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
 
@@ -20,11 +22,13 @@ const LoginPage = () => {
   };
 
   const handleSubmit = (e) => {
+    setErrMessage('')
     e.preventDefault();
     dispatch(loginActionAsync(formData)).then((res) => {
-      if (res.type.payload !== undefined) {
-        console.log(res.type);
+      if (res.payload !== null) {
         navigate("/");
+      } else{
+        setErrMessage("Login failed. Please check your credentials.")
       }
     });
   };
@@ -56,6 +60,8 @@ const LoginPage = () => {
               required={true}
               value={formData.password}
             />
+
+            {<span style={{color: 'red', fontSize: '13px'}}>{errMessage} </span>}
           </div>
 
           <button type="submit" disabled={isLoading}>
