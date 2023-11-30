@@ -1,27 +1,46 @@
+// authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
+import { loginActionAsync } from "../actions/authActions";
 
 const authSlice = createSlice({
     name: "auth",
     initialState: {
         user: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        loading: false,
     },
     reducers: {
-        loginUser: (state, action) => {
-            state.user = action.payload,
-            state.isAuthenticated = true
-        },
         logoutUser: (state) => {
-            state.user = null,
+            state.user = null
             state.isAuthenticated = false
+            state.loading = false
         }
-    }
-})
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(loginActionAsync.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(loginActionAsync.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.user = action.payload;
+                    state.isAuthenticated = true;
+                }
+                state.loading = false;
+            })
+            .addCase(loginActionAsync.rejected, (state) => {
+                state.loading = false;
+            });
+    },
+});
 
-export const  {loginUser, logoutUser} = authSlice.actions
+// Export the synchronous actions
+export const { loginUser, logoutUser } = authSlice.actions;
 
-export const seleteUser = (state) => state.auth.user
+// Export the selectors
+export const selectUser = (state) => state.auth.user;
+export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
+export const selectLoading = (state) => state.auth.loading;
 
-export const seleteIsAutheticated = (state) => state.auth.isAuthenticated
-
-export default authSlice.reducer
+// Export the reducer
+export default authSlice.reducer;

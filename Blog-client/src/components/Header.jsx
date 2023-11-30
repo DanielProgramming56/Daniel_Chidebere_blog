@@ -5,7 +5,13 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { selectIsAuthenticated } from '../store/reducers/authSlice';
+import { logoutUser } from '../store/reducers/authSlice';
 const AppHeader = () => {
+    const dispatch = useDispatch()
+    const isLogin = useSelector(selectIsAuthenticated)
+    console.log(logoutUser());
     return (
         <div className='container'>
             <Link to={"/"} className='Logo'> Space Air</Link>
@@ -17,7 +23,7 @@ const AppHeader = () => {
                 <Link to={"https://github.com/DanielProgramming56"} target="_blank">{<GitHubIcon />}</Link>
             </ul>
 
-            <Link to={"/login"}>Login</Link>
+            {isLogin ? <Link onClick={() => dispatch(logoutUser())}>Logout</Link> : <Link to={"/login"}>Login</Link>}
         </div>
     );
 }

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import "../styles/login.scss";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../store/reducers/authSlice";
-import { loginUserAsync } from "../store/actions/authActions";
-const apiUrl = import.meta.env.VITE_API;
+import { loginActionAsync } from "../store/actions/authActions";
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -22,7 +20,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUserAsync(formData)).then((res) => {
+    dispatch(loginActionAsync(formData)).then((res) => {
       if (res) {
         navigate("/");
       }
