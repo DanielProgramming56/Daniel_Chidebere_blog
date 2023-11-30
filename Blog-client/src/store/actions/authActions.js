@@ -5,7 +5,7 @@ const apiUrl = import.meta.env.VITE_API
 const loginActionAsync = createAsyncThunk('auth/loginUserAsync', async (formData, { dispatch }) => {
     try {
         const response = await axios.post(
-            `${apiUrl}user/login`,
+            `${apiUrl}/user/login`,
             formData, {
                 method: 'GET',
                 credentials: 'include',
