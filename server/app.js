@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 
 // middlewares
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));  // Place CORS middleware at the top
+app.use(cors({ origin: 'https://space-air.vercel.app/', credentials: true }));  // Place CORS middleware at the top
 app.use(express.json());
 app.use("/api", api);
 app.use(handleError);
