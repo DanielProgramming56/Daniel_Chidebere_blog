@@ -23,6 +23,7 @@ const LoginPage = () => {
     e.preventDefault();
     dispatch(loginActionAsync(formData)).then((res) => {
       if (res) {
+        console.log(res);
         navigate("/");
       }
     });
