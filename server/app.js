@@ -12,11 +12,10 @@ dotenv.config();
 const app = express();
 
 // middlewares
-app.use(cors({ origin: 'https://space-air.vercel.app/', credentials: true }));  // Place CORS middleware at the top
+app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 app.use("/api", api);
 app.use(handleError);
-// app.use(invalidPathError);
 
 // port
 const port = process.env.PORT || 5000;

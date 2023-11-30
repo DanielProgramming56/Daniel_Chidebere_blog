@@ -22,7 +22,8 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginActionAsync(formData)).then((res) => {
-      if (res.type == "auth/loginUserAsync/fulfilled") {
+      if (res.type.payload !== undefined) {
+        console.log(res.type);
         navigate("/");
       }
     });

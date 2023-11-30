@@ -5,11 +5,14 @@ const apiUrl = import.meta.env.VITE_API
 const loginActionAsync = createAsyncThunk('auth/loginUserAsync', async (formData, { dispatch }) => {
     try {
         const response = await axios.post(
-            `${apiUrl}/user/login`,
-            formData
+            `${apiUrl}user/login`,
+            formData, {
+                method: 'GET',
+                credentials: 'include',
+            }
         );
         if (response.data.message === 'User login successfully') {
-            return response.data; // Return data if needed
+            return response.data;
         } else {
             alert('Login failed. Please check your credentials.');
             return null;
