@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import "../styles/login.scss";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginActionAsync } from "../store/actions/authActions";
-
+import { selectLoading } from "../store/reducers/authSlice";
+import loading from "../assets/Ellipsis-1s-200px.svg"
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  const isLoading = useSelector(selectLoading)
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -56,7 +57,9 @@ const LoginPage = () => {
             />
           </div>
 
-          <button>SUBMIT</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? <img style={{height: "70px"}} src={loading} alt="loading" /> : "Submit"}
+          </button>
         </fieldset>
       </form>
     </div>
