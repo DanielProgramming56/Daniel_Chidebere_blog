@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/login.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,9 @@ const LoginPage = () => {
     password: "",
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [errMessage, setErrMessage] = useState("");
   const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();

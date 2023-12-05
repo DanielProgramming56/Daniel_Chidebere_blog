@@ -1,41 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import "../styles/singleBlog.scss"
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import "../styles/singleBlog.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { selectBlogId } from "../store/reducers/blogSlice";
+import { createCommentAsync, fetchBlogByIdAsync } from "../store/actions/blogActions";
+import format from "date-fns/format";
 
-const SIngleBlog = () => {
-  const [blog, setBlog] = useState({});
+const SingleBlog = () => {
   const { id } = useParams();
-
-  const arr = [1,2,3,4]
-
+  const dispatch = useDispatch();
+  const blog = useSelector(selectBlogId);
+  const [newComment, setNewComment] = useState('');
 
   useEffect(() => {
-    // Scroll to the top when the component mounts
-    window.scrollTo(0, 0);
-  }, []);
-  return (
-    <div className='singleBlogContainer'>
-       <div className='container-single'>
-       <h1>Blog Title</h1>
-        <span>12-05-23</span>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique excepturi cumque fuga esse perferendis quasi tempora architecto voluptas tempore mollitia! Animi temporibus earum fugiat corporis, ipsum recusandae sit quia asperiores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro ipsa minus doloribus vero, consectetur consequuntur, inventore natus debitis qui saepe ipsum aspernatur sed cupiditate vel dolor, consequatur iste harum molestiae? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, rerum reprehenderit. Commodi, sit ullam, perspiciatis vel, ratione nemo vitae obcaecati quas magnam in sunt laboriosam assumenda quidem maxime temporibus pariatur? Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti officiis maxime eaque culpa voluptatum aspernatur veniam, quae ipsa laudantium dolore tempore corporis, sapiente ad dolorem mollitia, recusandae sed omnis numquam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, minima quasi non amet soluta tempore libero ipsa corrupti facilis? Eius delectus at magni eligendi neque molestias perspiciatis dolores libero maxime.</p>
+    dispatch(fetchBlogByIdAsync(id));
+  }, [dispatch, id]);
 
-        <div className='comment'>
-          <h3>Comments</h3>
-          {arr.map((val) => (
-            <div className='single-comment'>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis id, commodi molestiae illo autem repellendus. Sed voluptatibus adipisci pariatur nemo quidem! Eveniet explicabo quas, consequatur molestiae accusantium dolorem laboriosam modi!</p>
-              <span>09 - 08- 23</span>
-            </div>
-          ))}
+ 
+
+  const formattedDate = blog.blog?.createdAt
+    ? format(new Date(blog.blog?.createdAt), "yyyy-MM-dd")
+    : "N/A";
+
+  const handleComment = () => {
+    dispatch(createCommentAsync({ blogId: id, text: newComment }));
+    setNewComment('');
+  };
+
+
+  return (
+    <div className="singleBlogContainer">
+      <div className="container-single">
+        <h1>{blog.blog?.title}</h1>
+        <span>{formattedDate}</span>
+        <p>{blog.blog?.content}</p>
+
+        <div className="comment">
+          {blog.blog?.comments && blog.blog?.comments.length > 0 ? (
+            <>
+              <h3>Comments</h3>
+              {blog.blog?.comments.map((comment, index) => (
+                <div key={index} className="single-comment">
+                  <p>{comment.text}</p>
+                  <span>
+                    {comment.createdAt
+                      ? format(new Date(comment.createdAt), "MM - dd - yy")
+                      : "N/A"}
+                  </span>
+                </div>
+              ))}
+            </>
+          ) : (
+            <p>No comments yet.</p>
+          )}
         </div>
+
         <form action="">
-        <textarea placeholder='write a comment....'></textarea>
-        <button type='submit'>Send</button>
+          <textarea
+            placeholder="Write a comment...."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          ></textarea>
+          <button type="submit" onClick={() => handleComment()}>
+            Send
+          </button>
         </form>
-       </div>
+      </div>
     </div>
   );
 };
 
-export default SIngleBlog;
+export default SingleBlog;

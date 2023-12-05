@@ -1,4 +1,5 @@
 import { Blog } from "../model/BlogModel.js"
+import { Comment } from "../model/commentModel.js"
 
 export const getAllBlogs = async (req, res, next) => {
     try {
@@ -82,4 +83,23 @@ export const deleteBlog = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+}
+
+// get Blog By Id
+export const getCommentByBlogId = async (req, res, next) => {
+    try {
+        const { blogId } = req.params;
+    
+        // Find the blog by ID and populate the 'comments' field
+        const blog = await Blog.findById(blogId).populate('comments');
+    
+        if (!blog) {
+          return res.status(404).json({ message: 'Blog not found' });
+        }
+    
+        res.json({ blog });
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
 }
