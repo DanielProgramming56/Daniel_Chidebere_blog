@@ -16,10 +16,10 @@ const SingleBlog = () => {
     dispatch(fetchBlogByIdAsync(id));
   }, [dispatch, id]);
 
- 
+ console.log(blog);
 
-  const formattedDate = blog.blog?.createdAt
-    ? format(new Date(blog.blog?.createdAt), "yyyy-MM-dd")
+  const formattedDate = blog?.blog?.createdAt
+    ? format(new Date(blog?.blog?.createdAt), "yyyy-MM-dd")
     : "N/A";
 
   const handleComment = () => {
@@ -31,15 +31,15 @@ const SingleBlog = () => {
   return (
     <div className="singleBlogContainer">
       <div className="container-single">
-        <h1>{blog.blog?.title}</h1>
+        <h1>{blog?.blog?.title}</h1>
         <span>{formattedDate}</span>
-        <p>{blog.blog?.content}</p>
+        <p>{blog?.blog?.content}</p>
 
         <div className="comment">
-          {blog.blog?.comments && blog.blog?.comments.length > 0 ? (
+          {blog?.blog?.comments && blog.blog?.comments.length > 0 ? (
             <>
               <h3>Comments</h3>
-              {blog.blog?.comments.map((comment, index) => (
+              {blog?.blog?.comments.map((comment, index) => (
                 <div key={index} className="single-comment">
                   <p>{comment.text}</p>
                   <span>
