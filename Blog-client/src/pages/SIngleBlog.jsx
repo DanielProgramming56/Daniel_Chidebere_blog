@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "../styles/singleBlog.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBlogId } from "../store/reducers/blogSlice";
@@ -11,12 +11,11 @@ const SingleBlog = () => {
   const dispatch = useDispatch();
   const blog = useSelector(selectBlogId);
   const [newComment, setNewComment] = useState('');
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchBlogByIdAsync(id));
   }, [dispatch, id]);
-
- console.log(blog);
 
   const formattedDate = blog?.blog?.createdAt
     ? format(new Date(blog?.blog?.createdAt), "yyyy-MM-dd")
@@ -25,6 +24,7 @@ const SingleBlog = () => {
   const handleComment = () => {
     dispatch(createCommentAsync({ blogId: id, text: newComment }));
     setNewComment('');
+    navigate("/")
   };
 
 
@@ -61,7 +61,7 @@ const SingleBlog = () => {
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           ></textarea>
-          <button type="submit" onClick={() => handleComment()}>
+          <button type="button" onClick={() => handleComment()}>
             Send
           </button>
         </form>
