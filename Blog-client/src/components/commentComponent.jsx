@@ -10,10 +10,10 @@ const CommentComponent = ({blog}) => {
     dispatch(fetchBlogByIdAsync(blog?.blog?._id))
   }, [blog?.blog?._id, deleteCom])
 
-  const deleteComment = (id) => {
-    dispatch(deleteCommentAsync(id))
+  const deleteComment = (commentId) => {
+    alert("are you sure you want to delete this comment")
+    dispatch(deleteCommentAsync({commentId}))
     setDeleteComment((prev) => !prev )
-    console.log(id);
   }
     return (
         <div className="comment">

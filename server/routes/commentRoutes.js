@@ -4,6 +4,6 @@ import { createComment, deleteComment, getCommentById } from "../controllers/com
 const route = express.Router()
 route.post("/:id", createComment)
 route.get("/:commentId", getCommentById)
-route.delete("/:id", deleteComment)
+route.delete("/:commentId", deleteComment)
 
 export default route

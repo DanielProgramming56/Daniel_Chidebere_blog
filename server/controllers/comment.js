@@ -39,16 +39,18 @@ export const getCommentById = async (req, res) => {
 
 export const deleteComment = async (req, res, next) => {
     try {
-        const { id } = req.params
-        const foundComment = await Comment.findByIdAndDelete(id)
+        const { commentId } = req.params;
+        
+        const foundComment = await Comment.findByIdAndDelete(commentId);
 
         if (!foundComment) {
-            res.status(404).json({ message: "blog not found" })
-            throw new  Error()
+            
+            return res.status(404).json({ message: "Comment not found", commentId });
         }
 
-        res.status(200).json({ message: "blog Deleted successfully" })
+        // await foundComment.remove();
+        return res.status(200).json({ message: "Comment Deleted successfully", commentId });
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
+};
