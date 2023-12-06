@@ -34,6 +34,16 @@ const createCommentAsync = createAsyncThunk('/blogs/createCommentAsync', async (
     }
 })
 
+const deleteCommentAsync = createAsyncThunk('/blogs/deleteBlogAsync', async({commentId}) => {
+    try {
+        const response = await axios.delete(`${apiUri}/comment/${commentId}`)
+        return response.data
+    } catch (error) {
+        console.log({ message: error.message });
+        throw error
+    }
+})
 
 
-export { fetchBlogsAsync, fetchBlogByIdAsync, createCommentAsync }
+
+export { fetchBlogsAsync, fetchBlogByIdAsync, createCommentAsync, deleteCommentAsync }

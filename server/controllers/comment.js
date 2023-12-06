@@ -36,3 +36,19 @@ export const getCommentById = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 }
+
+export const deleteComment = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const foundComment = await Comment.findByIdAndDelete(id)
+
+        if (!foundComment) {
+            res.status(404).json({ message: "blog not found" })
+            throw new  Error()
+        }
+
+        res.status(200).json({ message: "blog Deleted successfully" })
+    } catch (error) {
+        next(error)
+    }
+}

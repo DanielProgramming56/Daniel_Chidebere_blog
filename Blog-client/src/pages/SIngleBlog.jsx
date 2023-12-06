@@ -5,17 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectBlogId } from "../store/reducers/blogSlice";
 import { createCommentAsync, fetchBlogByIdAsync } from "../store/actions/blogActions";
 import format from "date-fns/format";
+import CommentComponent from "../components/commentComponent";
 
 const SingleBlog = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const blog = useSelector(selectBlogId);
   const [newComment, setNewComment] = useState('');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchBlogByIdAsync(id));
   }, [dispatch, id]);
+
+  useEffect(() => {
+    // Fetch blog data again whenever there is a new comment
+    dispatch(fetchBlogByIdAsync(id));
+  }, [dispatch, id, newComment]); // Include newComment as a dependency
 
   const formattedDate = blog?.blog?.createdAt
     ? format(new Date(blog?.blog?.createdAt), "yyyy-MM-dd")
@@ -24,9 +30,7 @@ const SingleBlog = () => {
   const handleComment = () => {
     dispatch(createCommentAsync({ blogId: id, text: newComment }));
     setNewComment('');
-    navigate("/")
   };
-
 
   return (
     <div className="singleBlogContainer">
@@ -35,25 +39,7 @@ const SingleBlog = () => {
         <span>{formattedDate}</span>
         <p>{blog?.blog?.content}</p>
 
-        <div className="comment">
-          {blog?.blog?.comments && blog.blog?.comments.length > 0 ? (
-            <>
-              <h3>Comments</h3>
-              {blog?.blog?.comments.map((comment, index) => (
-                <div key={index} className="single-comment">
-                  <p>{comment.text}</p>
-                  <span>
-                    {comment.createdAt
-                      ? format(new Date(comment.createdAt), "MM - dd - yy")
-                      : "N/A"}
-                  </span>
-                </div>
-              ))}
-            </>
-          ) : (
-            <p>No comments yet.</p>
-          )}
-        </div>
+        {<CommentComponent blog={blog} />}
 
         <form action="">
           <textarea
