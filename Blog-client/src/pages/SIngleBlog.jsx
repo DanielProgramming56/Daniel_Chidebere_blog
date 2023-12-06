@@ -18,11 +18,6 @@ const SingleBlog = () => {
     dispatch(fetchBlogByIdAsync(id));
   }, [dispatch, id]);
 
-  useEffect(() => {
-    // Fetch blog data again whenever there is a new comment
-    dispatch(fetchBlogByIdAsync(id));
-  }, [dispatch, id, newComment]); // Include newComment as a dependency
-
   const formattedDate = blog?.blog?.createdAt
     ? format(new Date(blog?.blog?.createdAt), "yyyy-MM-dd")
     : "N/A";
@@ -30,7 +25,10 @@ const SingleBlog = () => {
   const handleComment = () => {
     dispatch(createCommentAsync({ blogId: id, text: newComment }));
     setNewComment('');
+    navigate("/")
   };
+
+ 
 
   return (
     <div className="singleBlogContainer">
