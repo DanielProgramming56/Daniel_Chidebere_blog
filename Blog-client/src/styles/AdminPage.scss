@@ -1,0 +1,73 @@
+@import "./index.scss";
+
+.container-admin{
+    margin-top: 10em;
+    min-height: 100vh;
+    color: white;
+
+    h3{
+        font-size: 2em;
+        margin-left: 20px;
+        text-transform: uppercase;
+    }
+
+    h5{
+        margin-left: 20px;
+        font-size: 1.3em;
+        font-weight: 300;
+    }
+
+    .create-blog{
+        width: 100vw;
+        margin-left: 20px;
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 50vw;
+            gap: 7px;
+
+
+            label{
+                font-weight: 500;
+                font-size: 1.3em;
+            }
+
+            input,textarea{
+                padding: 20px;
+                font-size: 1em;
+                border: none;
+                outline: none;
+                border-radius: 5px;
+
+
+                &::placeholder{
+                    font-size: 1em;
+                    font-style: italic;
+                    text-transform: capitalize;
+                }
+            }
+
+            textarea{
+                height: 20vh;
+                resize: vertical;
+            }
+
+            button{
+                padding: 5px;
+                border: none;
+                background-color: $primary-color;
+                color: #fff;
+                font-size: 1.2em;
+                text-transform: uppercase;
+                transition: ease-in 0.3s linear;
+
+
+                &:hover{
+                    background-color: rgba(143, 28, 158, 0.329);
+                }
+            }
+        }
+
+        margin-bottom: 20px;
+    }
+}

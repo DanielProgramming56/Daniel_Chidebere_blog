@@ -29,7 +29,7 @@ const LoginPage = () => {
     e.preventDefault();
     dispatch(loginActionAsync(formData)).then((res) => {
       if (res.payload !== null) {
-        navigate("/");
+        navigate("/admin");
       } else{
         setErrMessage("Login failed. Please check your credentials.")
       }

@@ -6,9 +6,12 @@ import { deleteCommentAsync, fetchBlogByIdAsync } from '../store/actions/blogAct
 const CommentComponent = ({blog}) => {
   const dispatch = useDispatch()
   const [deleteCom, setDeleteComment] = useState(false)
-  useEffect(() => {
-    dispatch(fetchBlogByIdAsync(blog?.blog?._id))
-  }, [blog?.blog?._id, deleteCom])
+  if (blog?.blog?.comment?.length > 0)
+  {
+    useEffect(() => {
+      dispatch(fetchBlogByIdAsync(blog?.blog?._id))
+    }, [blog?.blog?._id, deleteCom])
+  }
 
   const deleteComment = (commentId) => {
     alert("are you sure you want to delete this comment")

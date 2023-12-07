@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { selectAuth } from "../reducers/authSlice";
 
 const apiUri = import.meta.env.VITE_API
 const fetchBlogsAsync = createAsyncThunk("blog/fetchPostsAsync", async () => {
@@ -44,6 +45,23 @@ const deleteCommentAsync = createAsyncThunk('/blogs/deleteBlogAsync', async({com
     }
 })
 
+const createBlogAsync = createAsyncThunk('/blogs/createBlogAsync', async ({title, content}, {getState}) => {
+    try {
+        const token = selectAuth(getState())
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        const response = await axios.post(`${apiUri}/blogs/create-post`, {title, content}, config)
+        return response.data
+    } catch (error) {
+        console.log({message: error.message});
+        throw error
+    }
+})
 
 
-export { fetchBlogsAsync, fetchBlogByIdAsync, createCommentAsync, deleteCommentAsync }
+
+export { fetchBlogsAsync, fetchBlogByIdAsync, createCommentAsync, deleteCommentAsync, createBlogAsync }

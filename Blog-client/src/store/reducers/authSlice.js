@@ -8,6 +8,7 @@ const authSlice = createSlice({
         user: null,
         isAuthenticated: false,
         loading: false,
+        token: null
     },
     reducers: {
         logoutUser: (state) => {
@@ -25,6 +26,7 @@ const authSlice = createSlice({
                 if (action.payload) {
                     state.user = action.payload;
                     state.isAuthenticated = true;
+                    state.token = action.payload.token
                 }
                 state.loading = false;
             })
@@ -41,6 +43,8 @@ export const { loginUser, logoutUser } = authSlice.actions;
 export const selectUser = (state) => state.auth.user;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectLoading = (state) => state.auth.loading;
+
+export const selectAuth = (state) => state.auth.token
 
 // Export the reducer
 export default authSlice.reducer;
