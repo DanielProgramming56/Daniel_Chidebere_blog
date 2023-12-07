@@ -35,7 +35,7 @@ const createCommentAsync = createAsyncThunk('/blogs/createCommentAsync', async (
     }
 })
 
-const deleteCommentAsync = createAsyncThunk('/blogs/deleteBlogAsync', async({commentId}) => {
+const deleteCommentAsync = createAsyncThunk('/blogs/deleteBlogAsync', async ({ commentId }) => {
     try {
         const response = await axios.delete(`${apiUri}/comment/${commentId}`)
         return response.data
@@ -45,7 +45,7 @@ const deleteCommentAsync = createAsyncThunk('/blogs/deleteBlogAsync', async({com
     }
 })
 
-const createBlogAsync = createAsyncThunk('/blogs/createBlogAsync', async ({title, content}, {getState}) => {
+const createBlogAsync = createAsyncThunk('/blogs/createBlogAsync', async ({ title, content }, { getState }) => {
     try {
         const token = selectAuth(getState())
         console.log(token);
@@ -54,14 +54,38 @@ const createBlogAsync = createAsyncThunk('/blogs/createBlogAsync', async ({title
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = await axios.post(`${apiUri}/blogs/create-post`, {title, content}, config)
+        const response = await axios.post(`${apiUri}/blogs/create-post`, { title, content }, config)
         return response.data
     } catch (error) {
-        console.log({message: error.message});
+        console.log({ message: error.message });
+        throw error
+    }
+})
+
+const deleteBlogsAsync = createAsyncThunk('/blogs/deleteBlogsAsync', async (id) => {
+    try {
+        const response = await axios.delete(`${apiUri}/blogs/delete/${id}`)
+        return response.data
+    } catch (error) {
+        console.log({ message: error.message })
         throw error
     }
 })
 
 
 
-export { fetchBlogsAsync, fetchBlogByIdAsync, createCommentAsync, deleteCommentAsync, createBlogAsync }
+export { fetchBlogsAsync, fetchBlogByIdAsync, createCommentAsync, deleteCommentAsync, createBlogAsync, deleteBlogsAsync }
+
+/*
+.addCase(deleteBlogAsync.pending, (state, action) => {
+                state.loading = true
+            }).addCase(deleteBlogAsync.fulfilled, (state, action) => {
+                state.loading = false
+                const { id } = action.payload
+
+                state.blogs = state.blogs.filter((blog) => blog._id !== id)
+            }).addCase((deleteBlogAsync.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message
+            }))
+*/

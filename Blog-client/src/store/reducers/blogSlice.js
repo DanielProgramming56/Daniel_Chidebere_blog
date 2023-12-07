@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createBlogAsync, createCommentAsync, deleteCommentAsync, fetchBlogByIdAsync, fetchBlogsAsync } from "../actions/blogActions";
+import { createBlogAsync, createCommentAsync, deleteBlogsAsync, deleteCommentAsync, fetchBlogByIdAsync, fetchBlogsAsync } from "../actions/blogActions";
 
 const blogSlice = createSlice({
     name: 'blog',
@@ -78,7 +78,19 @@ const blogSlice = createSlice({
             }).addCase(createBlogAsync.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message
+            }).addCase(deleteBlogsAsync.pending, (state) => {
+                state.loading = true;
             })
+            .addCase(deleteBlogsAsync.fulfilled, (state, action) => {
+                state.loading = false;
+                const { id } = action.payload;
+            
+                state.blogs = state.blogs.filter((blog) => blog._id !== id);
+            })
+            .addCase(deleteBlogsAsync.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            });
     }
 });
 

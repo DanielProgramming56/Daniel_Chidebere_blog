@@ -1,29 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/AdminPage.scss";
 import Blog from "../components/Blog";
-import { createBlogAsync } from "../store/actions/blogActions";
+import { createBlogAsync, deleteBlogsAsync, fetchBlogsAsync } from "../store/actions/blogActions";
 import { getAllBlogs } from "../store/reducers/blogSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../store/reducers/authSlice";
 const AdminPage = () => {
     const dispatch = useDispatch()
-    const user = useSelector(selectUser)
+    const blogs = useSelector(getAllBlogs)
     const [form, setForm] = useState({
     title: "",
     content: "",
   });
+  const [remove, setRemove] = useState(false)
 
+  useEffect(() => {
+     dispatch(fetchBlogsAsync())
+  }, [remove])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
-  
+ 
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setForm({
+        title: "",
+        content: ""
+    })
     dispatch(createBlogAsync({ title: form.title, content: form.content }));
 };
 
+  const deleteBlog = (id) => {
+   
+    dispatch(deleteBlogsAsync(id))
+    setRemove(true)
+
+    console.log(blogs);
+
+  }
   return (
     <div className="container-admin">
       <h3>Admin Page</h3>
@@ -54,7 +70,12 @@ const AdminPage = () => {
 
       <h5>My Blogs</h5>
       <div>
-        <Blog data={null} />
+        {blogs.map((data, index) => (
+            <div className="myBlog">
+                <Blog data={data} key={index} />
+                <button type="button" onClick={() => deleteBlog(data._id)}>Delete</button>
+            </div>
+        ))}
       </div>
     </div>
   );

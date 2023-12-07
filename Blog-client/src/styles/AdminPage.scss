@@ -17,6 +17,21 @@
         font-weight: 300;
     }
 
+    div{
+     
+        .myBlog{
+            button{
+              margin-left: 30px;
+              padding: 10px;
+              border-radius: 5px;
+              border: none;
+              background: red;
+              color: white;
+              font-size: 0.7em;
+            }
+        }
+    }
+
     .create-blog{
         width: 100vw;
         margin-left: 20px;
@@ -66,8 +81,11 @@
                     background-color: rgba(143, 28, 158, 0.329);
                 }
             }
-        }
 
+        }
+        
         margin-bottom: 20px;
     }
+
+    
 }
